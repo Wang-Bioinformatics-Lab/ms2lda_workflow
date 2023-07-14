@@ -1,19 +1,9 @@
-name: template_nextflow_workflow
-displayname: STUFF
+name: ms2lda_nextflow_workflow
+displayname: ms2lda_choser_nextflow_workflow
 Views:
--   name: Summary List
-    displayname: Summary List
-    viewname: summarylist
-    displaytype: datatable
+-   name: MS2LDA results list
+    displayname: MSMS choser results list
+    viewname: ms2lda_results
+    displaytype: download
     parameters:
-        filename: output/summary.tsv
-        columns:
-            -   title: "View LCMS"
-                data: filename
-            -   title: "filename"
-                data: filename
-        columnDefs: '[ {"targets": 0,"data": null,"render": function ( data, type, row, meta ) {
-            return `
-            <a target="_blank" href="/dashboards/lcms?usi=mzspec:GNPS2-${task}:${encodeURIComponent(row["filename"])}">View LCMS - mzspec:GNPS2-${task}:${row["filename"]}</a>
-            `;}}]'
-            
+        filename: otuput/ms2lda_results.qzv

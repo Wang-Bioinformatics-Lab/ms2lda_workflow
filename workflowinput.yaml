@@ -1,21 +1,196 @@
-workflowname: template_nextflow_workflow
-workflowdescription: template_nextflow_workflow
-workflowlongdescription: This is a template nextflow workflow for GNPS2
+workflowname: ms2lda_nextflow_workflow
+workflowdescription: ms2lda_nextflow_workflow
+workflowlongdescription: This is the workflow to run ms2lda from nextflow. The input of ms2lda is a tsv with the motifs in the scan and the motifs pairs. The output is the graphml representing the clusters of motifs and the pairs score similarity.
 workflowversion: "0.1"
 workflowfile: nf_workflow.nf
 workflowautohide: false
 adminonly: false
 #This maps the parameters from an input form to those that will appear in nextflow
 parameterlist:
-    - displayname: File Selection
+    - displayname: Select data files
       paramtype: section
 
-    - displayname: Input Data Folder
+    - displayname: Spectrum files (MGF, mzML or MSP)
       paramtype: fileselector
-      nf_paramname: input_spectra_folder
-      formplaceholder: Enter the path to data
+      nf_paramname: spectrum_files
+      formplaceholder: Enter the path of the spectrum files
       formvalue: ""
       targettaskfolder: input_spectra
       optional: false
       selectsinglefile: false
       folderunroll: true
+
+    - displayname: Molecular Network Pairs
+      paramtype: fileselector
+      nf_paramname: molecular_network_pairs
+      formplaceholder: Enter the path of the molecular network pairs file
+      formvalue: ""
+      targettaskfolder: input_files
+      optional: false
+      selectsinglefile: true
+      folderunroll: true
+
+    - displayname: MZMine2 Quantification CSV
+      paramtype: fileselector
+      nf_paramname: mzmine2_quantification_csv
+      formplaceholder: Enter the path of the MZMine2 Quantification CSV
+      formvalue: ""
+      targettaskfolder: input_files
+      optional: true
+      selectsinglefile: true
+      folderunroll: true
+
+    - displayname: Spectrum file type
+      paramtype: select
+      nf_paramname: spectrum_file_type
+      formvalue: mscluster
+      options:
+        - value: mscluster
+          display: MSCluster (Classic Molecular Networking) / MZMine2 without quantification
+        - value: mzmine
+          display: MZMine2 with quantification (Feature based molecular netowrking)
+
+    - displayname: Advanced MS2LDA parameters
+      paramtype: section
+
+    - displayname: Bin Width
+      paramtype: select
+      nf_paramname: bin_width
+      formvalue: "0.005"
+      options:
+        - value: "0.005"
+          display: 0.005 (Q-Exactive Data)
+        - value: "0.01"
+          display: 0.01 (TOF Data)
+        - value: "0.05"
+          display: "0.05"
+        - value: "0.1"
+          display: "0.1"
+        - value: "0.5"
+          display: "0.5"
+
+    - displayname: Number of LDA Iterations
+      paramtype: text
+      nf_paramname: lda_iterations
+      formplaceholder: Enter the Number of LDA iterations
+      formvalue: "1000"
+      tooltip: "Number of LDA iterations"
+
+    - displayname: Minimum MS2 intensity
+      paramtype: text
+      nf_paramname: minimum_ms2_intensity
+      formplaceholder: Enter the Minimum MS2 intensity
+      formvalue: "100"
+      tooltip: "Minimum MS2 intensity"
+
+    - displayname: LDA Free Motifs
+      paramtype: text
+      nf_paramname: lda_free_motifs
+      formplaceholder: Enter the LDA Free Motifs
+      formvalue: "300"
+      tooltip: "LDA Free Motifs"
+    
+    - displayname: MotifDB Selection
+      paramtype: section
+
+    - displayname: GNPS Motif inclusion
+      paramtype: select
+      nf_paramname: gnps_motif_inclusion
+      formvalue: yes
+      options:
+        - value: yes
+          display: include
+        - value: no
+          display: exclude
+
+    - displayname: MassBank Motif inclusion
+      paramtype: select
+      nf_paramname: massbank_motif_inclusion
+      formvalue: yes
+      options:
+        - value: yes
+          display: include
+        - value: no
+          display: exclude
+
+    - displayname: Urine Motif inclusion
+      paramtype: select
+      nf_paramname: urine_motif_inclusion
+      formvalue: yes
+      options:
+        - value: yes
+          display: include
+        - value: no
+          display: exclude
+
+    - displayname: Euphorbia Motif inclusion
+      paramtype: select
+      nf_paramname: euphorbia_motif_inclusion
+      formvalue: yes
+      options:
+        - value: yes
+          display: include
+        - value: no
+          display: exclude
+
+    - displayname: Rhamnaceae Plant Motif inclusion
+      paramtype: select
+      nf_paramname: rhamnaceae_motif_inclusion
+      formvalue: yes
+      options:
+        - value: yes
+          display: include
+        - value: no
+          display: exclude
+
+    - displayname: Streptomyces and Salinisporus Motif inclusion
+      paramtype: select
+      nf_paramname: streotinyces_salinisporus_motif_inclusion
+      formvalue: yes
+      options:
+        - value: yes
+          display: include
+        - value: no
+          display: exclude
+
+    - displayname: Photorhabdus and Xenorhabdus Motif inclusion
+      paramtype: select
+      nf_paramname: photorhabdus_xenorhabdus_motif_inclusion
+      formvalue: yes
+      options:
+        - value: yes
+          display: include
+        - value: no
+          display: exclude
+
+    - displayname: User Motif Set List
+      paramtype: text
+      nf_paramname: user_motif_set_list
+      formplaceholder: Enter the User motifs set list. 
+      formvalue: "None"
+      tooltip: "Enter the User motifs set list. The id for the motif set can be found on ms2lda.org. Multiple user motif sets can be included by separating by commas."
+
+
+    - displayname: Advanced MS2LDA parameters
+      paramtype: section
+
+    - displayname: Overlap score threshold
+      paramtype: text
+      nf_paramname: overlap_score_threshold
+      formplaceholder: Enter the Overlap score threshold
+      formvalue: "0.3"
+      tooltip: "Threshold (number between 0 and 1) on overlap scores on Mass2Motif-spectra links. Default value is 0.3 and other typically used values are 0.2 and 0.1 - this setting is dataset dependent and it is recommended to study the results in ms2lda.org by uploading the dict file to find an appropriate value."
+
+    - displayname: Probability value threshold
+      paramtype: text
+      nf_paramname: probability_value_threshold
+      formplaceholder: Enter the Probability value threshold
+      formvalue: "0.1"
+      tooltip: "Threshold (number between 0 and 1) on probability values on Mass2Motif-spectra links. Default value is 0.1 and other typically used values are 0.01 and 0.2 - this setting is dataset dependent and it is recommended to study the results in ms2lda.org by uploading the dict file to find an appropriate value."
+
+    - displayname: TopX in node
+      paramtype: text
+      nf_paramname: topx_in_node
+      formplaceholder: Enter the TopX in node
+      formvalue: "5"
+      tooltip: "The top X (integer) Mass2Motifs with the highest overlap scores that are listed in the new edge file. Default value is 5."

@@ -1,0 +1,5 @@
+updated pandas np floats for floats
+updated pickle calls to binary files
+updated argument calls
+updated iteration of dict keys
+updated csv package to python3
