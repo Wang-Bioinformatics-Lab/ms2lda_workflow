@@ -18,7 +18,7 @@ photorhabdus_motif_include = "no"
 user_motif_sets = "None"
 
 input_mgf_file = "data/specs_ms.mgf"
-input_pairs_file = "data/networkedges_selfloop/pairs.tsv"
+input_pairs_file = "data/pairs.tsv"
 input_mzmine2_folder = "data/quantification_table_reformatted.csv" 
 
 clean:

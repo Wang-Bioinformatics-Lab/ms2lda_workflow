@@ -3,10 +3,10 @@
 To test the workflow simply do
 
 ```
-make run [-e --annotations=<annotations_file> --xmlpath=<xmlpath)> --ppm_tolerance=<ppm_tolerance>]
+make run [-e --input_format "$(input_format)" --input_iterations $(input_iterations) --input_minimum_ms2_intensity $(input_minimum_ms2_intensity) --input_free_motifs $(input_free_motifs) --input_bin_width $(input_bin_width) --input_network_overlap $(input_network_overlap) --input_network_pvalue $(input_network_pvalue) --input_network_topx $(input_network_topx) --gnps_motif_include "$(gnps_motif_include)" --massbank_motif_include  "$(massbank_motif_include)" --urine_motif_include "$(urine_motif_include)" --euphorbia_motif_include "$(euphorbia_motif_include)" --rhamnaceae_motif_include "$(rhamnaceae_motif_include)" --strep_salin_motif_include "$(strep_salin_motif_include)" --photorhabdus_motif_include "$(photorhabdus_motif_include)" --user_motif_sets "$(user_motif_sets)" --input_mgf_file "$(input_mgf_file)" --input_pairs_file "$(input_pairs_file)" --input_mzmine2_folder "$(input_mzmine2_folder)" --output_prefix "output_ms2lda"]
 ```
 
-If you do not specify an input file, by default it will take the sample files located in [data/annotations.tsv](data/annotations.tsv) and the mzXML files containing the [positive](data/sulfamethizine_positive_2pt5uL_01.mzXML) and [negative](data/sulfamethizine_negative_2pt5uL_01.mzXML) spectra. The default ppm_tolerance is 10.0
+If you do not specify an input file, by default it will take the sample files located in [data/specs_ms.mgf](data/specs_ms.mgf) for the spectra,  and the mzXML files containing the [pairs](data/data/pairs.tsv) and [quantification from mzmine](data/quantification_table_reformatted.csv) spectra. The default values for parameters can be seen at [Makefile](Makefile) or [nf_workflow.nf](nf_workflow.nf). 
 
 To learn NextFlow checkout this documentation:
 
@@ -28,7 +28,7 @@ In case you wish to set your parameters directly in nextflow, please use the nex
 
 
 ```
-nextflow [options] ./nf_workflow.nf --annotations="$(annotations_file)" --path_to_spectra="$(path_to_spectra)" --ppm_tolerance=$(ppm_tolerance) --resume -c nextflow.config
+nextflow [options] ./nf_workflow.nf --input_format "$(input_format)" --input_iterations $(input_iterations) --input_minimum_ms2_intensity $(input_minimum_ms2_intensity) --input_free_motifs $(input_free_motifs) --input_bin_width $(input_bin_width) --input_network_overlap $(input_network_overlap) --input_network_pvalue $(input_network_pvalue) --input_network_topx $(input_network_topx) --gnps_motif_include "$(gnps_motif_include)" --massbank_motif_include  "$(massbank_motif_include)" --urine_motif_include "$(urine_motif_include)" --euphorbia_motif_include "$(euphorbia_motif_include)" --rhamnaceae_motif_include "$(rhamnaceae_motif_include)" --strep_salin_motif_include "$(strep_salin_motif_include)" --photorhabdus_motif_include "$(photorhabdus_motif_include)" --user_motif_sets "$(user_motif_sets)" --input_mgf_file "$(input_mgf_file)" --input_pairs_file "$(input_pairs_file)" --input_mzmine2_folder "$(input_mzmine2_folder)" --output_prefix "output_ms2lda" --resume -c nextflow.config
 ```
 
 ## Run in a conda environment
@@ -40,7 +40,7 @@ conda env create -f bin/conda_env.yml
 conda activate msms-choser-env
 ```
 
-and then the workflow can be executed from the conda environment. If you do not specify an input file, by default it will take the sample files located in [data/annotations.tsv](data/annotations.tsv) and the mzXML files containing the [positive](data/sulfamethizine_positive_2pt5uL_01.mzXML) and [negative](data/sulfamethizine_negative_2pt5uL_01.mzXML) spectra.
+and then the workflow can be executed from the conda environment. If you do not specify an input file, by default it will take the sample files located in [data/specs_ms.mgf](data/specs_ms.mgf) for the spectra,  and the mzXML files containing the [pairs](data/data/pairs.tsv) and [quantification from mzmine](data/quantification_table_reformatted.csv) spectra. The default values for parameters can be seen at [Makefile](Makefile) or [nf_workflow.nf](nf_workflow.nf). 
 
 ```
 nextflow [options] ./nf_workflow.nf --annotations="$(annotations_file)" --path_to_spectra="$(path_to_spectra)" --ppm_tolerance=$(ppm_tolerance) --resume -c nextflow.config

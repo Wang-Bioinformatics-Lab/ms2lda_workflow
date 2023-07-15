@@ -24,7 +24,7 @@ params.photorhabdus_motif_include = "no"
 params.user_motif_sets = "None"
 
 params.input_mgf_file = "data/specs_ms.mgf"
-params.input_pairs_file = "data/networkedges_selfloop/pairs.tsv"
+params.input_pairs_file = "data/pairs.tsv"
 params.input_mzmine2_folder = "data/quantification_table_reformatted.csv" 
 
 // parms for graphml
