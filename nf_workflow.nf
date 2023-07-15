@@ -1,10 +1,36 @@
 #!/usr/bin/env nextflow
 nextflow.enable.dsl=2
 
-params.input_mgf_file = "data/annotations.tsv"
-params.input_pairs_file = "data/"
-params.input_mzmine2_folder = "./nf_output"
-params.ppm_tolerance = 10.0
+
+
+params.publishdir = "./nf_output"
+params.input_format = "mzmine"
+params.input_iterations = 1000
+params.input_minimum_ms2_intensity = 100
+params.input_free_motifs = 300
+params.input_bin_width = 0.005
+params.input_network_overlap = 0.3
+params.input_network_pvalue = 0.1
+params.input_network_topx = 5
+
+
+params.gnps_motif_include = "yes"
+params.massbank_motif_include = "yes"
+params.urine_motif_include = "yes"
+params.euphorbia_motif_include = "no"
+params.rhamnaceae_motif_include = "no"
+params.strep_salin_motif_include = "no"
+params.photorhabdus_motif_include = "no"
+params.user_motif_sets = "None"
+
+params.input_mgf_file = "data/specs_ms.mgf"
+params.input_pairs_file = "data/networkedges_selfloop/pairs.tsv"
+params.input_mzmine2_folder = "data/quantification_table_reformatted.csv" 
+
+// parms for graphml
+params.output_graphml = "ms2lda_network.graphml"
+params.output_pairs = "ms2lda_pairs.tsv"
+
 
 // Workflow Boiler Plate
 params.OMETALINKING_YAML = "flow_filelinking.yaml"
@@ -12,55 +38,72 @@ params.OMETAPARAM_YAML = "job_parameters.yaml"
 
 TOOL_FOLDER = "$baseDir/bin"
 
-process processCandidates {
+def printParams(){
+    println $parms.input_format $params.publishDir
+}
+
+process processMS2LDA {
     publishDir "$params.publishdir", mode: 'copy', overwrite: false
 
     input:
-    path annotations, name: params.annotations
-    path path_to_spectra, name: params.path_to_spectra
-    val ppm_tolerance
+    path mgf_file, name: params.input_mgf_file
+    path pairs_file, name: params.input_pairs_file
+    path mzmine, name: params.input_mzmine2_folder
+    val input_format
+    val input_iterations
+    val input_minimum_ms2_intensity
+    val input_free_motifs
+    val input_bin_width
+    val input_network_overlap
+    val input_network_pvalue
+    val input_network_topx
+    val gnps_motif_include
+    val massbank_motif_include
+    val urine_motif_include
+    val euphorbia_motif_include
+    val rhamnaceae_motif_include
+    val strep_salin_motif_include
+    val photorhabdus_motif_include
+    val user_motif_sets
 
-    
     output:
-    path "batchfile.tsv"
-
+    path "ms2lda_nf_motifs_in_scans.tsv", emit: motifs
+    path "ms2lda_nf_ms2lda_edges.tsv", emit: edges
+    path "ms2lda_nf_ms2lda_nodes.tsv", emit: nodes
+    
+    
     """
+    python $TOOL_FOLDER/lda/ms2lda_runfull.py --input_format $input_format --input_iterations $input_iterations --input_minimum_ms2_intensity $input_minimum_ms2_intensity --input_free_motifs $input_free_motifs --input_bin_width $input_bin_width --input_network_overlap $input_network_overlap --input_network_pvalue $input_network_pvalue --input_network_topx $input_network_topx --gnps_motif_include $gnps_motif_include --massbank_motif_include  $massbank_motif_include --urine_motif_include $urine_motif_include --euphorbia_motif_include $euphorbia_motif_include --rhamnaceae_motif_include $rhamnaceae_motif_include --strep_salin_motif_include $strep_salin_motif_include --photorhabdus_motif_include $photorhabdus_motif_include --user_motif_sets $user_motif_sets --input_mgf_file $mgf_file --input_pairs_file $pairs_file --input_mzmine2_folder $mzmine --output_prefix "ms2lda_nf"
 
-    python $TOOL_FOLDER/prepare_library_addtions_gnps_collections.py $annotations $path_to_spectra batchfile.tsv --ppm_tolerance $ppm_tolerance
     """
 }
+
+process processGraphML {
+    publishDir "$params.publishdir", mode: 'copy', overwrite: false
+
+    input:
+    path motifs
+    path edges
+    val input_network_overlap
+    val input_network_pvalue
+    val input_network_topx
+
+    output:
+    path "ms2lda.graphml"
+    path "pairs.tsv"
+    
+
+    """
+    python $TOOL_FOLDER/lda/create_graphml.py --ms2lda_results $motifs --input_network_edges $edges --output_graphml "ms2lda.graphml" --output_pairs "pairs.tsv" --input_network_pvalue $input_network_pvalue --input_network_overlap $input_network_overlap --input_network_topx $input_network_topx 
+    """    
+}
+
 
 
 workflow{
-    ch1 = Channel.fromPath(params.annotations) 
-    ch2 = Channel.fromPath(params.path_to_spectra) 
-    processCandidates(ch1,ch2,params.ppm_tolerance)
+    ch1 = Channel.fromPath(params.input_mgf_file) 
+    ch2 = Channel.fromPath(params.input_pairs_file) 
+    ch3 = Channel.fromPath(params.input_mzmine2_folder) 
+    processMS2LDA(ch1,ch2,ch3,params.input_format, params.input_iterations, params.input_minimum_ms2_intensity, params.input_free_motifs, params.input_bin_width, params.input_network_overlap, params.input_network_pvalue, params.input_network_topx, params.gnps_motif_include, params.massbank_motif_include, params.urine_motif_include, params.euphorbia_motif_include, params.rhamnaceae_motif_include, params.strep_salin_motif_include, params.photorhabdus_motif_include, params.user_motif_sets) 
+    processGraphML(processMS2LDA.out.motifs, processMS2LDA.out.edges, params.input_network_pvalue, params.input_network_overlap, params.input_network_topx)
 }
-
-
-
-parser.add_argument('input_format', help='input_format')
-parser.add_argument('input_iterations', type=int, help='input_iterations')
-parser.add_argument('input_minimum_ms2_intensity', type=float, help='input_minimum_ms2_intensity')
-parser.add_argument('input_free_motifs', type=int, help='input_free_motifs')
-parser.add_argument('input_bin_width', type=float, help='input_bin_width')
-parser.add_argument('input_network_overlap', type=float, help='input_network_overlap')
-parser.add_argument('input_network_pvalue', type=float, help='input_network_pvalue')
-parser.add_argument('input_network_topx', type=int, help='input_network_topx')
-
-parser.add_argument('gnps_motif_include', help='gnps_motif_include')
-parser.add_argument('massbank_motif_include', help='massbank_motif_include')
-parser.add_argument('urine_motif_include', help='urine_motif_include')
-parser.add_argument('euphorbia_motif_include', help='euphorbia_motif_include')
-parser.add_argument('rhamnaceae_motif_include', help='rhamnaceae_motif_include')
-parser.add_argument('strep_salin_motif_include', help='strep_salin_motif_include')
-parser.add_argument('photorhabdus_motif_include', help='photorhabdus_motif_include')
-parser.add_argument('user_motif_sets', help='user_motif_sets')
-
-parser.add_argument('input_mgf_file', help='input_mgf_file')
-parser.add_argument('input_pairs_file', help='input_pairs_file')
-parser.add_argument('input_mzmine2_folder', help='input_mzmine2_folder')
-parser.add_argument('output_prefix', help='output_prefix')
-
-
-python bin/lda/ms2lda_runfull.py --input_format "mzmine" --input_iterations 1 --input_minimum_ms2_intensity 100 --input_free_motifs 300 --input_bin_width 0.005 --input_network_overlap 0.3 --input_network_pvalue 0.1 --input_network_topx 5 --gnps_motif_include "yes" --massbank_motif_include  "yes" --urine_motif_include "yes" --euphorbia_motif_include "no" --rhamnaceae_motif_include "no" --strep_salin_motif_include "no" --photorhabdus_motif_include "no" --user_motif_sets "None" --input_mgf_file "data/specs_ms.mgf" --input_pairs_file "data/networkedges_selfloop/pairs.tsv" --input_mzmine2_folder "data/quantification_table_reformatted.csv" --output_prefix "nf_output/whatever"

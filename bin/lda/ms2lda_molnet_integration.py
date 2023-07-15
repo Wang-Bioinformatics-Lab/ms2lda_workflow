@@ -4,14 +4,14 @@ import pandas as pd
 def write_output_files(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=0.3,p_thresh=0.1,X=5,motif_metadata = {}):
     #Writing out the graphml
     try:
-    write_network_output(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=overlap_thresh,p_thresh=p_thresh,X=X)
+        write_network_output(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=overlap_thresh,p_thresh=p_thresh,X=X)
     except Exception as ex:
         print("error writing output for network: " + str(ex))
 
 
     #Writing out the node information
     try:
-    write_node_output(lda_dictionary,output_name_prefix,metadata,overlap_thresh=overlap_thresh,p_thresh=p_thresh,X=X,motif_metadata=motif_metadata)
+        write_node_output(lda_dictionary,output_name_prefix,metadata,overlap_thresh=overlap_thresh,p_thresh=p_thresh,X=X,motif_metadata=motif_metadata)
     except Exception as ex:
         print("error writing output for node: " + str(ex))
 

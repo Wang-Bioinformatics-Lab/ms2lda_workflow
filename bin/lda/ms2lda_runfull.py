@@ -342,10 +342,10 @@ write_output_files(vd, pairs_file, output_prefix, metadata,
 # for this method to work (see the method in lda.py) as it depends what on
 # your system will render the pdf...
 from lda import write_topic_report
-#try:
-write_topic_report(vd,output_prefix+'_topic_report.pdf')
-#except:
-#    print("PDF Generation Failed")
+try:
+    write_topic_report(vd,output_prefix+'_topic_report.pdf')
+except:
+    print("PDF Generation Failed")
 
 
 ### Writing additional output, creates a list of all motifs found in data, one motif per row and MS/MS Scan
@@ -364,6 +364,7 @@ fieldnames = ['scan', 'precursor.mass',
                   "motifdb_annotation"]
 output_motifs_scans_filename = output_prefix + "_motifs_in_scans.tsv"
 motif_list_df = pd.DataFrame(all_motifs_in_scans)
+print(motif_list_df)
 motif_list_df = motif_list_df[fieldnames]
 motif_list_df.to_csv(output_motifs_scans_filename, sep="\t", index=False)
 

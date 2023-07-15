@@ -1,5 +1,5 @@
 name: ms2lda_nextflow_workflow
-displayname: ms2lda_choser_nextflow_workflow
+displayname: ms2lda_nextflow_workflow
 Views:
 -   name: MS2LDA results list
     displayname: MSMS choser results list
