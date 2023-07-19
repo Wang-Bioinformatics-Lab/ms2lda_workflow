@@ -45,3 +45,8 @@ and then the workflow can be executed from the conda environment. If you do not 
 ```
 nextflow [options] ./nf_workflow.nf --annotations="$(annotations_file)" --path_to_spectra="$(path_to_spectra)" --ppm_tolerance=$(ppm_tolerance) --resume -c nextflow.config
 ```
+
+
+## Deployment in GNPS2
+
+Check [Nexftlow template instructions from Mingxun Wang](https://github.com/Wang-Bioinformatics-Lab/Nextflow_Workflow_Template)
