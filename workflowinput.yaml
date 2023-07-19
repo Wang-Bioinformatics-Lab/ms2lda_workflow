@@ -12,7 +12,7 @@ parameterlist:
 
     - displayname: Spectrum files (MGF, mzML or MSP)
       paramtype: fileselector
-      nf_paramname: spectrum_files
+      nf_paramname: input_mgf_file
       formplaceholder: Enter the path of the spectrum files
       formvalue: ""
       targettaskfolder: input_spectra
@@ -22,7 +22,7 @@ parameterlist:
 
     - displayname: Molecular Network Pairs
       paramtype: fileselector
-      nf_paramname: molecular_network_pairs
+      nf_paramname: input_pairs_file
       formplaceholder: Enter the path of the molecular network pairs file
       formvalue: ""
       targettaskfolder: input_files
@@ -32,7 +32,7 @@ parameterlist:
 
     - displayname: MZMine2 Quantification CSV
       paramtype: fileselector
-      nf_paramname: mzmine2_quantification_csv
+      nf_paramname: input_mzmine2
       formplaceholder: Enter the path of the MZMine2 Quantification CSV
       formvalue: ""
       targettaskfolder: input_files
@@ -42,7 +42,7 @@ parameterlist:
 
     - displayname: Spectrum file type
       paramtype: select
-      nf_paramname: spectrum_file_type
+      nf_paramname: input_format
       formvalue: mscluster
       options:
         - value: mscluster
@@ -55,7 +55,7 @@ parameterlist:
 
     - displayname: Bin Width
       paramtype: select
-      nf_paramname: bin_width
+      nf_paramname: input_bin_width
       formvalue: "0.005"
       options:
         - value: "0.005"
@@ -71,21 +71,21 @@ parameterlist:
 
     - displayname: Number of LDA Iterations
       paramtype: text
-      nf_paramname: lda_iterations
+      nf_paramname: input_iterations
       formplaceholder: Enter the Number of LDA iterations
       formvalue: "1000"
       tooltip: "Number of LDA iterations"
 
     - displayname: Minimum MS2 intensity
       paramtype: text
-      nf_paramname: minimum_ms2_intensity
+      nf_paramname: input_minimum_ms2_intensity
       formplaceholder: Enter the Minimum MS2 intensity
       formvalue: "100"
       tooltip: "Minimum MS2 intensity"
 
     - displayname: LDA Free Motifs
       paramtype: text
-      nf_paramname: lda_free_motifs
+      nf_paramname: input_free_motifs
       formplaceholder: Enter the LDA Free Motifs
       formvalue: "300"
       tooltip: "LDA Free Motifs"
@@ -95,7 +95,7 @@ parameterlist:
 
     - displayname: GNPS Motif inclusion
       paramtype: select
-      nf_paramname: gnps_motif_inclusion
+      nf_paramname: gnps_motif_include
       formvalue: yes
       options:
         - value: yes
@@ -105,7 +105,7 @@ parameterlist:
 
     - displayname: MassBank Motif inclusion
       paramtype: select
-      nf_paramname: massbank_motif_inclusion
+      nf_paramname: massbank_motif_include
       formvalue: yes
       options:
         - value: yes
@@ -115,8 +115,8 @@ parameterlist:
 
     - displayname: Urine Motif inclusion
       paramtype: select
-      nf_paramname: urine_motif_inclusion
-      formvalue: yes
+      nf_paramname: urine_motif_include
+      formvalue: no
       options:
         - value: yes
           display: include
@@ -125,8 +125,8 @@ parameterlist:
 
     - displayname: Euphorbia Motif inclusion
       paramtype: select
-      nf_paramname: euphorbia_motif_inclusion
-      formvalue: yes
+      nf_paramname: euphorbia_motif_include
+      formvalue: no
       options:
         - value: yes
           display: include
@@ -135,8 +135,8 @@ parameterlist:
 
     - displayname: Rhamnaceae Plant Motif inclusion
       paramtype: select
-      nf_paramname: rhamnaceae_motif_inclusion
-      formvalue: yes
+      nf_paramname: rhamnaceae_motif_include
+      formvalue: no
       options:
         - value: yes
           display: include
@@ -145,8 +145,8 @@ parameterlist:
 
     - displayname: Streptomyces and Salinisporus Motif inclusion
       paramtype: select
-      nf_paramname: streotinyces_salinisporus_motif_inclusion
-      formvalue: yes
+      nf_paramname: strep_salin_motif_include
+      formvalue: no
       options:
         - value: yes
           display: include
@@ -155,8 +155,8 @@ parameterlist:
 
     - displayname: Photorhabdus and Xenorhabdus Motif inclusion
       paramtype: select
-      nf_paramname: photorhabdus_xenorhabdus_motif_inclusion
-      formvalue: yes
+      nf_paramname: photorhabdus_motif_include
+      formvalue: no
       options:
         - value: yes
           display: include
@@ -165,8 +165,8 @@ parameterlist:
 
     - displayname: User Motif Set List
       paramtype: text
-      nf_paramname: user_motif_set_list
-      formplaceholder: Enter the User motifs set list. 
+      nf_paramname: user_motif_sets
+      formplaceholder: Enter the User motifs set list
       formvalue: "None"
       tooltip: "Enter the User motifs set list. The id for the motif set can be found on ms2lda.org. Multiple user motif sets can be included by separating by commas."
 
@@ -176,21 +176,21 @@ parameterlist:
 
     - displayname: Overlap score threshold
       paramtype: text
-      nf_paramname: overlap_score_threshold
+      nf_paramname: input_network_overlap
       formplaceholder: Enter the Overlap score threshold
       formvalue: "0.3"
       tooltip: "Threshold (number between 0 and 1) on overlap scores on Mass2Motif-spectra links. Default value is 0.3 and other typically used values are 0.2 and 0.1 - this setting is dataset dependent and it is recommended to study the results in ms2lda.org by uploading the dict file to find an appropriate value."
 
     - displayname: Probability value threshold
       paramtype: text
-      nf_paramname: probability_value_threshold
+      nf_paramname: input_network_pvalue
       formplaceholder: Enter the Probability value threshold
       formvalue: "0.1"
       tooltip: "Threshold (number between 0 and 1) on probability values on Mass2Motif-spectra links. Default value is 0.1 and other typically used values are 0.01 and 0.2 - this setting is dataset dependent and it is recommended to study the results in ms2lda.org by uploading the dict file to find an appropriate value."
 
     - displayname: TopX in node
       paramtype: text
-      nf_paramname: topx_in_node
+      nf_paramname: input_network_topx
       formplaceholder: Enter the TopX in node
       formvalue: "5"
       tooltip: "The top X (integer) Mass2Motifs with the highest overlap scores that are listed in the new edge file. Default value is 5."

@@ -25,7 +25,7 @@ params.user_motif_sets = "None"
 
 params.input_mgf_file = "data/specs_ms.mgf"
 params.input_pairs_file = "data/pairs.tsv"
-params.input_mzmine2_folder = "data/quantification_table_reformatted.csv" 
+params.input_mzmine2 = "data/quantification_table_reformatted.csv" 
 
 // parms for graphml
 params.output_graphml = "ms2lda_network.graphml"
@@ -38,17 +38,13 @@ params.OMETAPARAM_YAML = "job_parameters.yaml"
 
 TOOL_FOLDER = "$baseDir/bin"
 
-def printParams(){
-    println $parms.input_format $params.publishDir
-}
-
 process processMS2LDA {
     publishDir "$params.publishdir", mode: 'copy', overwrite: false
 
     input:
     path mgf_file, name: params.input_mgf_file
     path pairs_file, name: params.input_pairs_file
-    path mzmine, name: params.input_mzmine2_folder
+    path mzmine, name: params.input_mzmine2
     val input_format
     val input_iterations
     val input_minimum_ms2_intensity
@@ -73,7 +69,7 @@ process processMS2LDA {
     
     
     """
-    python $TOOL_FOLDER/lda/ms2lda_runfull.py --input_format $input_format --input_iterations $input_iterations --input_minimum_ms2_intensity $input_minimum_ms2_intensity --input_free_motifs $input_free_motifs --input_bin_width $input_bin_width --input_network_overlap $input_network_overlap --input_network_pvalue $input_network_pvalue --input_network_topx $input_network_topx --gnps_motif_include $gnps_motif_include --massbank_motif_include  $massbank_motif_include --urine_motif_include $urine_motif_include --euphorbia_motif_include $euphorbia_motif_include --rhamnaceae_motif_include $rhamnaceae_motif_include --strep_salin_motif_include $strep_salin_motif_include --photorhabdus_motif_include $photorhabdus_motif_include --user_motif_sets $user_motif_sets --input_mgf_file $mgf_file --input_pairs_file $pairs_file --input_mzmine2_folder $mzmine --output_prefix "ms2lda_nf"
+    python $TOOL_FOLDER/lda/ms2lda_runfull.py --input_format $input_format --input_iterations $input_iterations --input_minimum_ms2_intensity $input_minimum_ms2_intensity --input_free_motifs $input_free_motifs --input_bin_width $input_bin_width --input_network_overlap $input_network_overlap --input_network_pvalue $input_network_pvalue --input_network_topx $input_network_topx --gnps_motif_include $gnps_motif_include --massbank_motif_include  $massbank_motif_include --urine_motif_include $urine_motif_include --euphorbia_motif_include $euphorbia_motif_include --rhamnaceae_motif_include $rhamnaceae_motif_include --strep_salin_motif_include $strep_salin_motif_include --photorhabdus_motif_include $photorhabdus_motif_include --user_motif_sets $user_motif_sets --input_mgf_file $mgf_file --input_pairs_file $pairs_file --input_mzmine2 $mzmine --output_prefix "ms2lda_nf"
 
     """
 }
@@ -103,7 +99,7 @@ process processGraphML {
 workflow{
     ch1 = Channel.fromPath(params.input_mgf_file) 
     ch2 = Channel.fromPath(params.input_pairs_file) 
-    ch3 = Channel.fromPath(params.input_mzmine2_folder) 
+    ch3 = Channel.fromPath(params.input_mzmine2) 
     processMS2LDA(ch1,ch2,ch3,params.input_format, params.input_iterations, params.input_minimum_ms2_intensity, params.input_free_motifs, params.input_bin_width, params.input_network_overlap, params.input_network_pvalue, params.input_network_topx, params.gnps_motif_include, params.massbank_motif_include, params.urine_motif_include, params.euphorbia_motif_include, params.rhamnaceae_motif_include, params.strep_salin_motif_include, params.photorhabdus_motif_include, params.user_motif_sets) 
     processGraphML(processMS2LDA.out.motifs, processMS2LDA.out.edges, params.input_network_pvalue, params.input_network_overlap, params.input_network_topx)
 }
