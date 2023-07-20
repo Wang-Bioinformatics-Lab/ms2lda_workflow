@@ -15,6 +15,7 @@ parameterlist:
       nf_paramname: input_mgf_file
       formplaceholder: Enter the path of the spectrum files
       formvalue: ""
+      targettaskfolder: input_spectra
       optional: false
       selectsinglefile: false
       folderunroll: true
@@ -24,6 +25,7 @@ parameterlist:
       nf_paramname: input_pairs_file
       formplaceholder: Enter the path of the molecular network pairs file
       formvalue: ""
+      targettaskfolder: input_files_pairs
       optional: false
       selectsinglefile: true
       folderunroll: true
@@ -33,6 +35,7 @@ parameterlist:
       nf_paramname: input_mzmine2
       formplaceholder: Enter the path of the MZMine2 Quantification CSV
       formvalue: ""
+      targettaskfolder: input_files_quant
       optional: true
       selectsinglefile: true
       folderunroll: true
