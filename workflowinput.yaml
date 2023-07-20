@@ -17,7 +17,7 @@ parameterlist:
       formvalue: ""
       targettaskfolder: input_spectra
       optional: false
-      selectsinglefile: false
+      selectsinglefile: true
       folderunroll: true
 
     - displayname: Molecular Network Pairs
