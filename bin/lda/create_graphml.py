@@ -1,6 +1,6 @@
 import os
 import sys
-from PyMolNetEnhancer import *
+from pyMolNetEnhancer import *
 import pandas as pd
 import networkx as nx
 import argparse
