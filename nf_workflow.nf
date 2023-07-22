@@ -69,7 +69,7 @@ process processMS2LDA {
     
     
     """
-    python $TOOL_FOLDER/lda/ms2lda_runfull.py --input_format $input_format --input_iterations $input_iterations --input_minimum_ms2_intensity $input_minimum_ms2_intensity --input_free_motifs $input_free_motifs --input_bin_width $input_bin_width --input_network_overlap $input_network_overlap --input_network_pvalue $input_network_pvalue --input_network_topx $input_network_topx --gnps_motif_include $gnps_motif_include --massbank_motif_include  $massbank_motif_include --urine_motif_include $urine_motif_include --euphorbia_motif_include $euphorbia_motif_include --rhamnaceae_motif_include $rhamnaceae_motif_include --strep_salin_motif_include $strep_salin_motif_include --photorhabdus_motif_include $photorhabdus_motif_include --user_motif_sets $user_motif_sets --input_mgf_file $mgf_file --input_pairs_file $pairs_file --input_mzmine2 $mzmine --output_prefix "ms2lda_nf"
+    python $TOOL_FOLDER/lda_old/ms2lda_runfull.py --input_format $input_format --input_iterations $input_iterations --input_minimum_ms2_intensity $input_minimum_ms2_intensity --input_free_motifs $input_free_motifs --input_bin_width $input_bin_width --input_network_overlap $input_network_overlap --input_network_pvalue $input_network_pvalue --input_network_topx $input_network_topx --gnps_motif_include $gnps_motif_include --massbank_motif_include  $massbank_motif_include --urine_motif_include $urine_motif_include --euphorbia_motif_include $euphorbia_motif_include --rhamnaceae_motif_include $rhamnaceae_motif_include --strep_salin_motif_include $strep_salin_motif_include --photorhabdus_motif_include $photorhabdus_motif_include --user_motif_sets $user_motif_sets --input_mgf_file $mgf_file --input_pairs_file $pairs_file --input_mzmine2 $mzmine --output_prefix "ms2lda_nf"
 
     """
 }
@@ -90,7 +90,7 @@ process processGraphML {
     
 
     """
-    python $TOOL_FOLDER/lda/create_graphml.py --ms2lda_results $motifs --input_network_edges $edges --output_graphml "ms2lda.graphml" --output_pairs "pairs.tsv" --input_network_pvalue $input_network_pvalue --input_network_overlap $input_network_overlap --input_network_topx $input_network_topx 
+    python $TOOL_FOLDER/lda_old/create_graphml.py --ms2lda_results $motifs --input_network_edges $edges --output_graphml "ms2lda.graphml" --output_pairs "pairs.tsv" --input_network_pvalue $input_network_pvalue --input_network_overlap $input_network_overlap --input_network_topx $input_network_topx 
     """    
 }
 
