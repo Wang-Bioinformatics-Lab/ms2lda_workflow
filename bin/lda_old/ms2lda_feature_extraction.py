@@ -148,7 +148,7 @@ class Loader(object):
     def _load_peak_list(self):
         self.ms1_peaks = []
         self.user_cols_names = []
-        with open(self.peaklist,'rU') as f:
+        with open(self.peaklist,'r') as f:
 
 
             heads = f.readline()

@@ -9,18 +9,17 @@ dependencies:
   - jupyter
   - jupyterlab
   - scipy
-  - redis
   - matplotlib
   - scikit-learnç
   - networkx
   - gensim
+  - pip>=23.1.2
   - pip:
     - requests
-    - request_cache
-    - multiprocessing
     - seaborn
     - tqdm
     - ipywidgets
     - pyMolNetEnhancer
     - loguru
     - mass-spec-utils
+    - redis>=4.6.0
