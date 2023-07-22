@@ -2,16 +2,25 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python=3.8.8
+  - python>=3.8.8
   - pandas
+  - numpy
+  - plotly
+  - jupyter
+  - jupyterlab
+  - scipy
+  - redis
+  - matplotlib
+  - scikit-learnç
+  - networkx
+  - gensim
   - pip:
     - requests
     - request_cache
     - multiprocessing
-    - numpy
-    - plotly
-    - jupyter
-    - scipy
-    - networkx
+    - seaborn
+    - tqdm
+    - ipywidgets
     - pyMolNetEnhancer
     - loguru
+    - mass-spec-utils

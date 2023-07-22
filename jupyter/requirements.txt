@@ -2,6 +2,20 @@ numpy
 plotly
 jupyter
 scipy
-pyMolNetEnhancer
 redis
 matplotlib
+pandas
+seaborn
+scikit-learn
+loguru
+jupyterlab
+ipywidgets
+tqdm
+networkx
+gensim
+pip
+tqdm
+pip:
+  - pymzml==2.4.7
+  - mass-spec-utils
+  - pyMolNetEnhancer

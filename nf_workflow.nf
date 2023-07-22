@@ -40,7 +40,7 @@ TOOL_FOLDER = "$baseDir/bin"
 
 process processMS2LDA {
     publishDir "$params.publishdir", mode: 'copy', overwrite: false
-
+    conda "$TOOL_FOLDER/conda_env.yml"
     input:
     path mgf_file, name: params.input_mgf_file
     path pairs_file, name: params.input_pairs_file
@@ -76,7 +76,7 @@ process processMS2LDA {
 
 process processGraphML {
     publishDir "$params.publishdir", mode: 'copy', overwrite: false
-
+    conda "$TOOL_FOLDER/conda_env.yml"
     input:
     path motifs
     path edges
