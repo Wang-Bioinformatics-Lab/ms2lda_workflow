@@ -16,6 +16,7 @@ dependencies:
     - networkx
     - gensim
     - requests
+    - requests_cache
     - seaborn
     - tqdm
     - ipywidgets
