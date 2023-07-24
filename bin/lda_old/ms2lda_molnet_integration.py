@@ -30,7 +30,7 @@ def write_network_output(lda_dictionary,pairs_file,output_name_prefix,metadata,o
     components_to_ignore.add('-1')
 
     rows = []
-    with open(temp_pairs_filename,'rU') as f:
+    with open(temp_pairs_filename,'r') as f:
         reader = csv.reader(f,dialect='excel',delimiter='\t')
         heads = next(reader)
         for line in reader:

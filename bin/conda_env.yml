@@ -2,19 +2,19 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python>=3.8.8
+  - python>=3.10.6
   - pandas
   - numpy
-  - plotly
-  - jupyter
-  - jupyterlab
-  - scipy
-  - matplotlib
-  - scikit-learnç
-  - networkx
-  - gensim
   - pip>=23.1.2
   - pip:
+    - plotly
+    - jupyter
+    - jupyterlab
+    - scipy
+    - matplotlib
+    - scikit-learn
+    - networkx
+    - gensim
     - requests
     - seaborn
     - tqdm
