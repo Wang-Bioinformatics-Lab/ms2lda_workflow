@@ -1,5 +1,6 @@
 import csv
 import pandas as pd
+import itertools
 
 def write_output_files(lda_dictionary,pairs_file,output_name_prefix,metadata,overlap_thresh=0.3,p_thresh=0.1,X=5,motif_metadata = {}):
     #Writing out the graphml
@@ -86,10 +87,10 @@ def write_network_output(lda_dictionary,pairs_file,output_name_prefix,metadata,o
             mco = sorted(mco, key = lambda x: x[1],reverse = True)
             n = max(X,len(mco))
             try:
-                m,_ = zip(*mco)
+                m,_ = zip(*itertools.zip_longest(*mco, fillvalue=None))
                 topX[c] = m[:n]
             except Exception as e:
-                pass # do nothing to skip the keys that have an error
+                pass
         
 
 
@@ -180,7 +181,7 @@ def write_node_output(lda_dictionary,output_name_prefix,metadata,overlap_thresh=
             new_row += [precursor_mz,retention_time,annotation]
             motif_list = [0.0 for m in all_motifs]
             for m in motifs:
-                pos = all_motifs.index(m)
+                pos = list(all_motifs).index(m)
                 o = lda_dictionary['overlap_scores'][doc][m]
                 motif_list[pos] = o
             new_row += motif_list
