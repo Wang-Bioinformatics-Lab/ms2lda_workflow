@@ -1,9 +1,49 @@
 name: ms2lda_nextflow_workflow
 displayname: ms2lda_nextflow_workflow
 Views:
+-   name: MS2LDA motifs
+    displayname: MS2LDA motifs list
+    viewname: ms2lda_motifs
+    displaytype: datatable
+    parameters:
+        filename: nf_output/ms2lda_nf_motifs_in_scans.tsv
+        columns:
+            -   title: "scan"
+                data: scan
+            -   title: "precursor mass"
+                data: precursor.mass
+            -   title: "Retention Time"
+                data: retention.time
+            -   title: "MOTIF ID"
+                data: motif
+            -   title: "Probability"
+                data: probability
+            -   title: "Overlap"
+                data: overlap
+            -   title: "Motif db URL"
+                data: motifdb_url
+            -   title: "Motif db annotation"
+                data: motifdb_annotation
+
 -   name: MS2LDA results list
     displayname: MS2LDA results list
     viewname: ms2lda_results
     displaytype: download
     parameters:
-        filename: otuput/ms2lda_results.qzv
+        filename: nf_output/ms2lda.graphml
+
+-   name: MS2LDA nodes list
+    displayname: MS2LDA nodes list
+    viewname: ms2lda_nodes
+    displaytype: datatable_serverbig
+    parameters:
+        filename: nf_output/ms2lda_nf_ms2lda_nodes.tsv
+        columns:
+            -   title: "scans"
+                data: scan
+            -   title: "motif"
+                data: motif
+            -   title: "probability"
+                data: probability
+            -   title: "overlap"
+                data: overlap
