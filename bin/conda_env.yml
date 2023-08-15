@@ -22,7 +22,7 @@ dependencies:
     - seaborn
     - tqdm
     - ipywidgets
-    - pyMolNetEnhancer
+    - pyMolNetEnhancer>=0.2.0
     - loguru
     - mass-spec-utils
     - redis>=4.6.0
