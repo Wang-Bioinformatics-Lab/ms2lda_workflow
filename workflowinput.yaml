@@ -1,6 +1,6 @@
 workflowname: ms2lda_nextflow_workflow
 workflowdescription: ms2lda_nextflow_workflow
-workflowlongdescription: This is the workflow to run ms2lda from nextflow. The input of ms2lda is a tsv with the motifs in the scan and the motifs pairs. The output is the graphml representing the clusters of motifs and the pairs score similarity.
+workflowlongdescription: This is the workflow to run ms2lda from nextflow. The input of ms2lda is a tsv with the motifs in the scan and the motifs pairs. The output is the graphml representing the clusters of motifs and the pairs score similarity. For documentation, please visit https://ms2lda.org/user_guide/. 
 workflowversion: "0.1"
 workflowfile: nf_workflow.nf
 workflowautohide: false

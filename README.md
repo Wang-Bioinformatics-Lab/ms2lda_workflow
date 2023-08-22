@@ -1,10 +1,12 @@
 # msms2lda Nextflow
 
-To test the workflow simply do
+To test the workflow the next command should be executed:
 
 ```
 make run [-e --input_format "$(input_format)" --input_iterations $(input_iterations) --input_minimum_ms2_intensity $(input_minimum_ms2_intensity) --input_free_motifs $(input_free_motifs) --input_bin_width $(input_bin_width) --input_network_overlap $(input_network_overlap) --input_network_pvalue $(input_network_pvalue) --input_network_topx $(input_network_topx) --gnps_motif_include "$(gnps_motif_include)" --massbank_motif_include  "$(massbank_motif_include)" --urine_motif_include "$(urine_motif_include)" --euphorbia_motif_include "$(euphorbia_motif_include)" --rhamnaceae_motif_include "$(rhamnaceae_motif_include)" --strep_salin_motif_include "$(strep_salin_motif_include)" --photorhabdus_motif_include "$(photorhabdus_motif_include)" --user_motif_sets "$(user_motif_sets)" --input_mgf_file "$(input_mgf_file)" --input_pairs_file "$(input_pairs_file)" --input_mzmine2_folder "$(input_mzmine2_folder)" --output_prefix "output_ms2lda"]
 ```
+
+For documentation about the MS2LDA tool, please read the ms2lda [user guide](https://ms2lda.org/user_guide/),
 
 If you do not specify an input file, by default it will take the sample files located in [data/specs_ms.mgf](data/specs_ms.mgf) for the spectra,  and the mzXML files containing the [pairs](data/data/pairs.tsv) and [quantification from mzmine](data/quantification_table_reformatted.csv) spectra. The default values for parameters can be seen at [Makefile](Makefile) or [nf_workflow.nf](nf_workflow.nf). 
 

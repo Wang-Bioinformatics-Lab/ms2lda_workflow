@@ -1,5 +1,6 @@
 name: ms2lda_nextflow_workflow
 displayname: ms2lda_nextflow_workflow
+description: Display from the ms2lda tool (https://ms2lda.org/)
 Views:
 -   name: MS2LDA motifs
     displayname: MS2LDA motifs list
