@@ -26,9 +26,9 @@ Views:
             -   title: "Motif db annotation"
                 data: motifdb_annotation
 
--   name: MS2LDA results list
-    displayname: MS2LDA results list
-    viewname: ms2lda_results
+-   name: MS2LDA graphml file
+    displayname: MS2LDA graphml file
+    viewname: ms2lda_graphml_file
     displaytype: download
     parameters:
         filename: nf_output/ms2lda.graphml
@@ -36,7 +36,7 @@ Views:
 -   name: MS2LDA nodes list
     displayname: MS2LDA nodes list
     viewname: ms2lda_nodes
-    displaytype: datatable_serverbig
+    displaytype: datatable
     parameters:
         filename: nf_output/ms2lda_nf_ms2lda_nodes.tsv
         columns:
