@@ -1,4 +1,4 @@
-# msms2lda Nextflow
+# ms2lda Nextflow
 
 To test the workflow the next command should be executed:
 
@@ -35,11 +35,11 @@ nextflow [options] ./nf_workflow.nf --input_format "$(input_format)" --input_ite
 
 ## Run in a conda environment
 
-To run the workflow in a conda environment, there is a configuration file [conda_env.yml](bin/conda_env.yml). This file configured the environment named msms-choser-env. It can be created and activated by:
+To run the workflow in a conda environment, there is a configuration file [conda_env.yml](bin/conda_env.yml). This file configured the environment named ms2lda-env. It can be created and activated by:
 
 ```
 conda env create -f bin/conda_env.yml
-conda activate msms-choser-env
+conda activate ms2lda-env
 ```
 
 and then the workflow can be executed from the conda environment. If you do not specify an input file, by default it will take the sample files located in [data/specs_ms.mgf](data/specs_ms.mgf) for the spectra,  and the mzXML files containing the [pairs](data/data/pairs.tsv) and [quantification from mzmine](data/quantification_table_reformatted.csv) spectra. The default values for parameters can be seen at [Makefile](Makefile) or [nf_workflow.nf](nf_workflow.nf). 
