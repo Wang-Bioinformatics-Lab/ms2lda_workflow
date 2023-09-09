@@ -41,6 +41,16 @@ Views:
         filename: nf_output/ms2lda_nf_ms2lda_nodes.tsv
         columns:
             -   title: "scans"
-                data: b'scan'
+                data: scan
+            -   title: "document"
+                data: document
             -   title: "motif"
-                data: b'motif'
+                data: motif
+            -   title: "probability"
+                data: probability
+            -   title: "overlap"
+                data: overlap
+            -   title: "precursor_mass"
+                data: precursor_mass
+            -   title: "retention_time"
+                data: retention_time
