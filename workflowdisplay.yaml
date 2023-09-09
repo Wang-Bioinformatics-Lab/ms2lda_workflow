@@ -53,7 +53,7 @@ Views:
     viewname: ms2lda_pairs_motif_edges
     displaytype: datatable
     parameters:
-        filename: nf_output/ms2lda_nf_edges.tsv
+        filename: nf_output/ms2lda_nf_ms2lda_edges.tsv
         columns:
             -   title: "CLUSTERID1"
                 data: CLUSTERID1
