@@ -3,7 +3,7 @@ nextflow.enable.dsl=2
 
 
 
-params.publishdir = "./nf_output"
+
 params.input_format = "mzmine"
 params.input_iterations = 1000
 params.input_minimum_ms2_intensity = 100
@@ -39,7 +39,7 @@ params.OMETAPARAM_YAML = "job_parameters.yaml"
 TOOL_FOLDER = "$baseDir/bin"
 
 process processMS2LDA {
-    publishDir "$params.publishdir", mode: 'copy', overwrite: false
+    publishDir "./nf_output", mode: 'copy', overwrite: false
     conda "$TOOL_FOLDER/conda_env.yml"
     input:
     path mgf_file, name: params.input_mgf_file
@@ -75,7 +75,7 @@ process processMS2LDA {
 }
 
 process processGraphML {
-    publishDir "$params.publishdir", mode: 'copy', overwrite: false
+    publishDir "./nf_output", mode: 'copy', overwrite: false
     conda "$TOOL_FOLDER/conda_env.yml"
     input:
     path motifs
